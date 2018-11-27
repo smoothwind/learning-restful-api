@@ -2,14 +2,16 @@ package com.lx3.learning;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.commons.io.*;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.*;
 
 @RestController
@@ -132,6 +134,15 @@ public class TvSeriesController {
         FileOutputStream fos = new FileOutputStream("target/"+imgfile.getOriginalFilename());
         IOUtils.copy(imgfile.getInputStream(),fos);
         fos.close();
+    }
+    @GetMapping(value="/{id}/icon",produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getIcon(@PathVariable int id) throws Exception{
+        if(log.isTraceEnabled()){
+            log.trace("getIcon(" + id + ")");
+        }
+        String iconFile="scr/main/resources/icon.jpg";
+        InputStream is = new FileInputStream(iconFile);
+        return IOUtils.toByteArray(is);
     }
 
 }

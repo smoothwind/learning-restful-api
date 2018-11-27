@@ -2,10 +2,14 @@ package com.lx3.learning;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileOutputStream;
 import java.util.*;
 
 @RestController
@@ -117,6 +121,17 @@ public class TvSeriesController {
         Calendar cl =Calendar.getInstance();
         cl.set(2016,cl.OCTOBER,2,0,0);
         return new TvSeriesDto(101,"West World",1, cl.getTime());
+    }
+
+    @PostMapping(value = "/{id}/photos",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void addPhoto(@PathVariable int id, @RequestParam("photo")MultipartFile imgfile) throws Exception{
+        if(log.isTraceEnabled()){
+            log.trace("addPhoto" + id);
+        }
+        //保存文件
+        FileOutputStream fos = new FileOutputStream("target/"+imgfile.getOriginalFilename());
+        IOUtils.copy(imgfile.getInputStream(),fos);
+        fos.close();
     }
 
 }

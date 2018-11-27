@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -49,7 +50,7 @@ public class TvSeriesController {
     }
 
 
-
+/*
     @PostMapping
     public TvSeriesDto insertOne(@RequestBody TvSeriesDto tvSeriesDto){
         if(log.isTraceEnabled()) {
@@ -57,7 +58,7 @@ public class TvSeriesController {
         }
         tvSeriesDto.setId(9999);
         return  tvSeriesDto;
-    }
+    }*/
 
     @GetMapping("/{id}")
     public TvSeriesDto getOne(@PathVariable int id)
@@ -140,9 +141,23 @@ public class TvSeriesController {
         if(log.isTraceEnabled()){
             log.trace("getIcon(" + id + ")");
         }
-        String iconFile="scr/main/resources/icon.jpg";
+        String iconFile="src/main/resources/icon.jpg";
         InputStream is = new FileInputStream(iconFile);
         return IOUtils.toByteArray(is);
     }
 
+    /**
+     * @Valid 注解表示需要验证传入的参数TvSeriesDto，需要验证的Field在TvSeriesDto内通过注解定义(@NotNull,@DecimalMin等)
+     * @param tvSeriesDto
+     * @return
+     */
+    @PostMapping
+    public TvSeriesDto insertOne(@Valid @RequestBody TvSeriesDto tvSeriesDto){
+        if(log.isTraceEnabled()) {
+            log.trace("这里应该重写新增TvSeriesDto对象的方法");
+        }
+        //TODO:待修改
+        tvSeriesDto.setId(9999);
+        return  tvSeriesDto;
+    }
 }

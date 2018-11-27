@@ -3,16 +3,38 @@ package com.lx3.learning;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
 public class TvSeriesDto {
+    @Null
     private int id;
+
+    @NotNull
     private String name;
+
+    @Min(1)
     private int seasonCount;
 
     //@JsonFormat(shape= JsonFormat.Shape.NUMBER)
     @JsonFormat(timezone="GMT+8", pattern="yyyy-MM-dd")
+    @Past
     private Date originRelease;
+
+    @Valid
+    @NotNull
+    @Size(min=2)
+    private List<TvCharacterDto> tvCharacters;
+
+    public List<TvCharacterDto> getTvCharacters() {
+        return tvCharacters;
+    }
+
+    public void setTvCharacters(List<TvCharacterDto> tvCharacters) {
+        this.tvCharacters = tvCharacters;
+    }
 
     public int getId() {
         return id;

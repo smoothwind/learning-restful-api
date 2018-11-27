@@ -1,0 +1,5 @@
+logging:
+  file: target/app.log
+  level:
+    ROOT: WARN
+    com.lx3: TRACE #com.lx包的日志追踪级别

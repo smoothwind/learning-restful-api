@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/tvseries?stringType=unspecified&ApplicationName=tutorial
-    username: pgdbo
-    password: sql
+    url: jdbc:mysql://127.0.0.1/tvseries
+    username: admin
+    password: admin
 mybatis.configuration.mapUnderscoreToCamelCase: true
 logging:
   file: target/app.log

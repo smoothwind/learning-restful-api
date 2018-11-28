@@ -34,6 +34,7 @@ public class TvSeriesServiceTest {
         System.out.println(ts);
         list.add(ts);
 
+        //TODO: tvSeriesDao 为空，测试失败！
         //下面这个语句是告诉Mock出来tvSeriesDao当执行getAll()方法时，返回上面创建的那个list
         Mockito.when(tvSeriesDao.getAll()).thenReturn(list);
         System.out.println(ts);

@@ -3,6 +3,7 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/tvseries?stringType=unspecified&ApplicationName=tutorial
     username: pgdbo
     password: sql
+mybatis.configuration.mapUnderscoreToCamelCase: true
 logging:
   file: target/app.log
   level:

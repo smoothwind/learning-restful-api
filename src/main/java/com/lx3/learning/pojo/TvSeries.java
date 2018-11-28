@@ -79,6 +79,13 @@ public class TvSeries {
                 '}';
     }
 
+    /***
+     * 构造器
+     * @param id  in
+     * @param name String
+     * @param seasonCount int
+     * @param originRelease Date
+     */
     public TvSeries(int id, String name, int seasonCount, Date originRelease) {
         this.id = id;
         this.name = name;
@@ -86,6 +93,9 @@ public class TvSeries {
         this.originRelease = originRelease;
     }
 
+    /***
+     *
+     */
     public TvSeries() {
     }
 }

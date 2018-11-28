@@ -1,4 +1,4 @@
-package com.lx3.learning;
+package com.lx3.learning.pojo;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 
-public class TvSeriesDto {
+public class TvSeries {
     @Null
     private int id;
 
@@ -26,13 +26,13 @@ public class TvSeriesDto {
     @Valid
     @NotNull
     @Size(min=2)
-    private List<TvCharacterDto> tvCharacters;
+    private List<TvCharacter> tvCharacters;
 
-    public List<TvCharacterDto> getTvCharacters() {
+    public List<TvCharacter> getTvCharacters() {
         return tvCharacters;
     }
 
-    public void setTvCharacters(List<TvCharacterDto> tvCharacters) {
+    public void setTvCharacters(List<TvCharacter> tvCharacters) {
         this.tvCharacters = tvCharacters;
     }
 
@@ -70,7 +70,7 @@ public class TvSeriesDto {
 
     @Override
     public String toString() {
-        return "TvSeriesDto{" +
+        return "TvSeries{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", seasonCount=" + seasonCount +
@@ -79,13 +79,13 @@ public class TvSeriesDto {
                 '}';
     }
 
-    public TvSeriesDto(int id, String name, int seasonCount, Date originRelease) {
+    public TvSeries(int id, String name, int seasonCount, Date originRelease) {
         this.id = id;
         this.name = name;
         this.seasonCount = seasonCount;
         this.originRelease = originRelease;
     }
 
-    public TvSeriesDto() {
+    public TvSeries() {
     }
 }

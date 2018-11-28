@@ -1,8 +1,11 @@
-package com.lx3.learning;
+package com.lx3.learning.controller;
 
+import com.lx3.learning.pojo.TvSeries;
+import com.lx3.learning.service.TvSeriesService;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.io.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +16,10 @@ import javax.validation.Valid;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("tvseries")
@@ -29,30 +35,45 @@ public class TvSeriesController {
 
     /*
     @GetMapping
-    public List<TvSeriesDto> getAll(){
-        List<TvSeriesDto> list = new ArrayList<>();
+    public List<TvSeries> getAll(){
+        List<TvSeries> list = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016,calendar.OCTOBER,2,0,0);
         calendar.setTimeZone(TimeZone.getDefault());
-        list.add(new TvSeriesDto(1,"WestWorld",1,calendar.getTime()));
+        list.add(new TvSeries(1,"WestWorld",1,calendar.getTime()));
         return list;
     }*/
 
+    @Autowired
+    private TvSeriesService tvSeriesService;
+
     @GetMapping
-    public List<TvSeriesDto> getAll(){
-        List<TvSeriesDto> list = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2016,calendar.OCTOBER,2,0,0);
-        list.add(new TvSeriesDto(1,"WestWorld",1,calendar.getTime()));
-        calendar.set(2011,calendar.SEPTEMBER,22,0,0);
-        list.add(new TvSeriesDto(1,"Person of Internet",5,calendar.getTime()));
+    public List<TvSeries> getAll(){
+        if(log.isTraceEnabled()){
+            log.trace("getAll();被调用。");
+        }
+        List<TvSeries> list = tvSeriesService.getAllTvSeries();
+        if(log.isTraceEnabled()){
+            log.trace("查询获得"+list.size()+"条记录。");
+        }
         return list;
     }
+    /*
+    @GetMapping
+    public List<TvSeries> getAll(){
+        List<TvSeries> list = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2016,calendar.OCTOBER,2,0,0);
+        list.add(new TvSeries(1,"WestWorld",1,calendar.getTime()));
+        calendar.set(2011,calendar.SEPTEMBER,22,0,0);
+        list.add(new TvSeries(1,"Person of Internet",5,calendar.getTime()));
+        return list;
+    }*/
 
 
 /*
     @PostMapping
-    public TvSeriesDto insertOne(@RequestBody TvSeriesDto tvSeriesDto){
+    public TvSeries insertOne(@RequestBody TvSeries tvSeriesDto){
         if(log.isTraceEnabled()) {
             log.trace("这里应该重写新增TvSeriesDto对象的方法");
         }
@@ -61,7 +82,7 @@ public class TvSeriesController {
     }*/
 
     @GetMapping("/{id}")
-    public TvSeriesDto getOne(@PathVariable int id)
+    public TvSeries getOne(@PathVariable int id)
     {
         if(log.isTraceEnabled()){
             log.trace("getOne" + id);
@@ -78,7 +99,7 @@ public class TvSeriesController {
     }
 
     @PutMapping("/{id}")
-    public TvSeriesDto updateOne(@PathVariable int id, @RequestBody TvSeriesDto tvSeriesDto)
+    public TvSeries updateOne(@PathVariable int id, @RequestBody TvSeries tvSeriesDto)
     {
         if(log.isTraceEnabled()){
             log.trace("updateOne" + id);
@@ -114,16 +135,16 @@ public class TvSeriesController {
 
         return result;
     }
-    private TvSeriesDto createPoi() {
+    private TvSeries createPoi() {
         Calendar cl =Calendar.getInstance();
-        cl.set(2011,cl.SEPTEMBER,22,0,0);
-        return new TvSeriesDto(102,"Person of Interest",5, cl.getTime());
+        cl.set(2011, Calendar.SEPTEMBER,22,0,0);
+        return new TvSeries(102,"Person of Interest",5, cl.getTime());
     }
 
-    private TvSeriesDto createWestWorld(){
+    private TvSeries createWestWorld(){
         Calendar cl =Calendar.getInstance();
-        cl.set(2016,cl.OCTOBER,2,0,0);
-        return new TvSeriesDto(101,"West World",1, cl.getTime());
+        cl.set(2016, Calendar.OCTOBER,2,0,0);
+        return new TvSeries(101,"West World",1, cl.getTime());
     }
 
     @PostMapping(value = "/{id}/photos",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -152,7 +173,7 @@ public class TvSeriesController {
      * @return
      */
     @PostMapping
-    public TvSeriesDto insertOne(@Valid @RequestBody TvSeriesDto tvSeriesDto){
+    public TvSeries insertOne(@Valid @RequestBody TvSeries tvSeriesDto){
         if(log.isTraceEnabled()) {
             log.trace("这里应该重写新增TvSeriesDto对象的方法");
         }

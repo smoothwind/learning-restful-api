@@ -1,8 +1,8 @@
-package com.lx3.learning;
+package com.lx3.learning.pojo;
 
 import javax.validation.constraints.NotNull;
 
-public class TvCharacterDto {
+public class TvCharacter {
     @NotNull
     private String name;
 
@@ -16,12 +16,12 @@ public class TvCharacterDto {
 
     @Override
     public String toString() {
-        return "TvCharacterDto{" +
+        return "TvCharacter{" +
                 "name='" + name + '\'' +
                 '}';
     }
 
-    public TvCharacterDto(@NotNull String name) {
+    public TvCharacter(@NotNull String name) {
         this.name = name;
     }
 }

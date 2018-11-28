@@ -75,6 +75,7 @@ public class TvSeriesDto {
                 ", name='" + name + '\'' +
                 ", seasonCount=" + seasonCount +
                 ", originRelease=" + originRelease +
+                ", tvCharacters=" + tvCharacters +
                 '}';
     }
 

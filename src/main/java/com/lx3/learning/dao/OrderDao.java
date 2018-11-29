@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-public interface OrderDAO {
+public interface OrderDao {
     public int insertOrder(@Param("order") Order order);
 }

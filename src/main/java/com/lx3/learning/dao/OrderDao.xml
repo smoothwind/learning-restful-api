@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.lx3.learning.dao.OrderDAO">
+    <!--   主要是在主键是自增的情况下，添加成功后可以直接使用主键值，其中keyProperty的值是对象的属性值不是数据库表中的字段名-->
+    <insert id="insertOrder"
+            useGeneratedKeys="true"
+            keyProperty="order.id" keyColumn="id"
+            parameterType="com.lx3.learning.model.Order">
+        insert into order_main (order_date, consignee, phone,province, city,district,address,status)
+        values(#{order.orderDate},
+        #{order.consigneeAddress.consignee},
+        #{order.consigneeAddress.phone},
+        #{order.consigneeAddress.province},
+        #{order.consigneeAddress.city},
+        #{order.consigneeAddress.district},
+        #{order.consigneeAddress.address},
+        0
+        )
+        <foreach collection="order.orderItems" item="item"  index="index"
+        open="" separator=";" close="">
+            insert into order_detail(order_id,
+            product_id,
+            product_name,
+            num,
+            price)
+            values(
+            #{item.id}
+            #{item.productID},
+            #{item.productName},
+            #{item.num},
+            #{item.price}
+            );
+        </foreach>
+    </insert>
+</mapper>

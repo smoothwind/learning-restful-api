@@ -9,3 +9,4 @@ logging:
   level:
     ROOT: WARN
     com.lx3: TRACE
+    com.lx3.learning.config: INFO #只有为INFO时才能在控制台显示默认配置的一些打印信息，包括密码

@@ -6,13 +6,18 @@ import com.lx3.learning.pojo.TvSeries;
 import com.lx3.learning.service.TvSeriesService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class TvSeriesServiceTest {
     @Autowired
     TvSeriesService tvSeriesService;
@@ -34,11 +39,12 @@ public class TvSeriesServiceTest {
         System.out.println(ts);
         list.add(ts);
 
-        //TODO: tvSeriesDao 为空，测试失败！
+        //TO1DO: tvSeriesDao 为空，测试失败！
+        //20181129 经反复查证，去掉多余的jar、添加类注解 和重新编译
         //下面这个语句是告诉Mock出来tvSeriesDao当执行getAll()方法时，返回上面创建的那个list
         Mockito.when(tvSeriesDao.getAll()).thenReturn(list);
         System.out.println(ts);
-        Assert.assertNull("is null",tvSeriesService);
+        //Assert.assertNull("is null",tvSeriesService);
 
         //测试tvSeries的getAllTvSeries()方法，获得返回值
         List<TvSeries> result = tvSeriesService.getAllTvSeries();
